@@ -21,10 +21,22 @@ class CircleApp extends StatelessWidget {
 class CircleHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: CustomPaint(
-        painter: DrawCircle(context, 40.0),
-      ),
+    return Center(child: Circle());
+  }
+}
+
+class Circle extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return CircleState();
+  }
+}
+
+class CircleState extends State {
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: DrawCircle(context, 80.0),
     );
   }
 }

@@ -19,27 +19,56 @@ class CircleApp extends StatelessWidget {
   }
 }
 
-class CircleHomePage extends StatelessWidget {
+class CircleHomePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return CircleHomePageState();
+  }
+}
+
+class CircleHomePageState extends State {
+  final GlobalKey<CircleState> circleState = GlobalKey<CircleState>();
+
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.white, child: Center(child: Circle()));
+    return Container(
+        color: Colors.white,
+        child: Center(
+            child: GestureDetector(
+          child: Circle(getRandomColor(), circleState),
+          onTap: onCircleTap,
+        )));
+  }
+
+  void onCircleTap() {
+    circleState.currentState.setColor(getRandomColor());
   }
 }
 
 class Circle extends StatefulWidget {
+  final color;
+  Circle(this.color, Key key) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return CircleState();
+    return CircleState(color);
   }
 }
 
 class CircleState extends State {
-  Color color = Colors.amber;
+  Color color;
+  CircleState(this.color);
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: DrawCircle(getRandomColor(), 80.0),
+      size: Size(160.0, 160.0),
+      painter: DrawCircle(color, 80.0),
     );
+  }
+
+  void setColor(Color color) {
+    setState(() {
+      this.color = color;
+    });
   }
 }
 
@@ -53,12 +82,12 @@ class DrawCircle extends CustomPainter {
   }
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawCircle(Offset(0.0, 0.0), radius, circlePaint);
+    canvas.drawCircle(Offset(radius, radius), radius, circlePaint);
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+    return true;
   }
 }
 

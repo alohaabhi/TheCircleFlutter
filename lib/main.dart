@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 void main() {
   runApp(CircleApp());
@@ -21,7 +22,7 @@ class CircleApp extends StatelessWidget {
 class CircleHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Circle());
+    return Container(color: Colors.white, child: Center(child: Circle()));
   }
 }
 
@@ -33,10 +34,11 @@ class Circle extends StatefulWidget {
 }
 
 class CircleState extends State {
+  Color color = Colors.amber;
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: DrawCircle(context, 80.0),
+      painter: DrawCircle(getRandomColor(), 80.0),
     );
   }
 }
@@ -44,9 +46,9 @@ class CircleState extends State {
 class DrawCircle extends CustomPainter {
   Paint circlePaint;
   final radius;
-  DrawCircle(BuildContext context, this.radius) {
+  DrawCircle(Color color, this.radius) {
     this.circlePaint = Paint()
-      ..color = Theme.of(context).accentColor
+      ..color = color
       ..style = PaintingStyle.fill;
   }
   @override
@@ -58,4 +60,9 @@ class DrawCircle extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) {
     return false;
   }
+}
+
+Color getRandomColor() {
+  return Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+      .withOpacity(1.0);
 }

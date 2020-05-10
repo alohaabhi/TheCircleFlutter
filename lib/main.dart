@@ -5,6 +5,8 @@ void main() {
   runApp(CircleApp());
 }
 
+const CIRCLE_RADIUS = 80.0;
+
 class CircleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -60,8 +62,8 @@ class CircleState extends State {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      size: Size(160.0, 160.0),
-      painter: DrawCircle(color, 80.0),
+      size: Size(CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2),
+      painter: DrawCircle(color, CIRCLE_RADIUS),
     );
   }
 

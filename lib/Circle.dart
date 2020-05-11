@@ -17,10 +17,10 @@ class CircleState extends State {
   CircleState(this.color);
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size(CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2),
-      painter: DrawCircle(color, CIRCLE_RADIUS),
-    );
+    return ClipOval(
+        child: CustomPaint(
+            size: Size(CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2),
+            painter: DrawCircle(color, CIRCLE_RADIUS)));
   }
 
   void setColor(Color color) {
